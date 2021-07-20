@@ -1,0 +1,139 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 2444458 */
+  src: url('iconfont.woff2?t=1620789119303') format('woff2'),
+       url('iconfont.woff?t=1620789119303') format('woff'),
+       url('iconfont.ttf?t=1620789119303') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-transfer:before {
+  content: "\e99d";
+}
+
+.icon-close1:before {
+  content: "\e61f";
+}
+
+.icon-undo:before {
+  content: "\e787";
+}
+
+.icon-transfer1:before {
+  content: "\e6b4";
+}
+
+.icon-redo:before {
+  content: "\e692";
+}
+
+.icon-search:before {
+  content: "\e600";
+}
+
+.icon-download:before {
+  content: "\e601";
+}
+
+.icon-star:before {
+  content: "\e603";
+}
+
+.icon-delete:before {
+  content: "\e610";
+}
+
+.icon-close:before {
+  content: "\e602";
+}
+
+.icon-tag:before {
+  content: "\e738";
+}
+
+.icon-touxiang:before {
+  content: "\e65f";
+}
+
+.icon-time:before {
+  content: "\e735";
+}
+
+.icon-eye:before {
+  content: "\e88c";
+}
+
+.icon-addfriends:before {
+  content: "\e674";
+}
+
+.icon-aui-icon-location:before {
+  content: "\e617";
+}
+
+.icon-heart:before {
+  content: "\e647";
+}
+
+.icon-share:before {
+  content: "\e613";
+}
+
+.icon-Comment:before {
+  content: "\e651";
+}
+
+.icon-Drawpad:before {
+  content: "\e678";
+}
+
+.icon-barchart:before {
+  content: "\e694";
+}
+
+.icon-fire:before {
+  content: "\e729";
+}
+
+.icon-shui:before {
+  content: "\e66e";
+}
+
+.icon-leidian:before {
+  content: "\e6c3";
+}
+
+.icon-Gallery:before {
+  content: "\e659";
+}
+
+.icon-video:before {
+  content: "\e6bd";
+}
+
+.icon-article:before {
+  content: "\e7fd";
+}
+
+.icon-liuyan:before {
+  content: "\e6a8";
+}
+
+.icon-wechat:before {
+  content: "\e616";
+}
+
+.icon-qq:before {
+  content: "\e68d";
+}
+
+.icon-github:before {
+  content: "\e885";
+}
+
