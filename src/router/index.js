@@ -4,6 +4,8 @@ import Main from '../views/Main.vue'
 import Login from '../views/Login.vue'
 import GameInfo from '../views/analyse/GameInfo.vue'
 import GameData from '../views/analyse/GameData.vue'
+import GameManage from '../views/gamemanage/GameManage.vue'
+import AddGame from '../views/gamemanage/AddGame.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -25,6 +27,14 @@ const routes = [
       {
         path: '/gamedata',
         component: GameData
+      },
+      {
+        path: '/gamemanage',
+        component: GameManage
+      },
+      {
+        path: '/addgame',
+        component: AddGame
       }
     ]
   },

@@ -52,8 +52,8 @@
                 ><i class="el-icon-menu"></i>游戏管理</template
               >
               <el-menu-item-group>
-                <el-menu-item index="/gameinfo">选项1</el-menu-item>
-                <el-menu-item index="/gamedata">选项2</el-menu-item>
+                <el-menu-item index="/gamemanage">游戏列表</el-menu-item>
+                <el-menu-item index="/addgame">添加游戏</el-menu-item>
               </el-menu-item-group>
             </el-submenu>
             <el-submenu index="3">

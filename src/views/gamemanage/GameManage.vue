@@ -1,9 +1,9 @@
 <template>
-  <div class="gameinfo">
+  <div class="gamemanage">
     <div class="search-box">
       <div class="title">
-        <i class="el-icon-search"></i>
-        游戏信息管理
+        <div class="left"><i class="el-icon-search"></i> 数据筛选</div>
+        <div class="right"><el-button type="text">高级搜索</el-button></div>
       </div>
       <div class="search">
         <span>游戏名称:</span>
@@ -16,11 +16,18 @@
       <div class="top">
         <div class="title">
           <i class="el-icon-tickets"></i>
-          游戏信息列表
+          游戏列表
         </div>
-        <el-button type="primary">新建游戏</el-button>
+        <el-button type="primary">添加游戏</el-button>
       </div>
       <div class="middle">
+        <el-button-group>
+          <el-button plain>全部</el-button>
+          <el-button plain>上架</el-button>
+          <el-button plain>暂未上架</el-button>
+          <el-button plain>下架</el-button>
+        </el-button-group>
+
         <el-table
           :data="tableData"
           border
@@ -36,7 +43,12 @@
           </el-table-column>
           <el-table-column prop="name" label="游戏名称" width="180">
           </el-table-column>
+          <el-table-column prop="logo" label="logo" width="100">
+          </el-table-column>
+          <el-table-column prop="intro" label="简介" width="300">
+          </el-table-column>
           <el-table-column
+            width="120"
             prop="sort"
             label="游戏类型"
             column-key="sort"
@@ -49,35 +61,26 @@
             :filter-method="filterHandler"
           >
           </el-table-column>
+          <el-table-column prop="rank" label="排行榜名次" width="100">
+          </el-table-column>
+          <el-table-column prop="groundingstatus" label="上架状态" width="180">
+          </el-table-column>
           <el-table-column
-            prop="publishTime"
-            label="发布日期"
-            sortable
-            column-key="publishTime"
-            :filters="[
-              { text: '2021.06', value: '2021.06' },
-              { text: '2021.07', value: '2021.07' },
-            ]"
-            :filter-method="filterHandler"
+            prop="publishstatus"
+            label="发放账号状态"
+            width="120"
           >
           </el-table-column>
-          <el-table-column label="游戏热度" sortable prop="hit">
-            <template slot-scope="scope">
-              <i
-                class="iconfont icon-fire"
-                v-for="(index, i) in Number(scope.row.hit)"
-                :key="i"
-              ></i>
-            </template>
-          </el-table-column>
-          <el-table-column fixed="right" label="操作" width="200">
+          <el-table-column fixed="right" label="操作" width="250">
             <template slot-scope="scope">
               <el-button
                 @click="handleClick(scope.row)"
                 type="text"
                 size="small"
-                >修改编辑</el-button
+                >修改</el-button
               >
+              <el-button type="text" size="small">上架</el-button>
+              <el-button type="text" size="small">下架</el-button>
               <el-button type="text" size="small">查看详情</el-button>
               <el-button type="text" size="small" style="color: #666"
                 >删除</el-button
@@ -100,6 +103,7 @@
     </div>
   </div>
 </template>
+
 
 <script>
 export default {
@@ -189,8 +193,10 @@ export default {
 };
 </script>
 
+
+
 <style lang="scss" scoped>
-.gameinfo {
+.gamemanage {
   height: calc(100vh - 100px);
   display: flex;
   align-items: center;
@@ -212,8 +218,14 @@ export default {
       padding: 0 40px;
       font-size: 22px;
       font-weight: 550;
+      justify-content: space-between;
       i {
         margin-right: 15px;
+      }
+      .right {
+        ::v-deep .el-button {
+          font-weight: 600;
+        }
       }
     }
     .search {
@@ -255,7 +267,10 @@ export default {
     .middle {
       width: 100%;
       padding: 0 40px;
+      display: flex;
+      flex-direction: column;
       .el-table {
+        margin-top: 20px;
         .icon-fire {
           font-size: 25px;
           color: rgb(167, 29, 29);

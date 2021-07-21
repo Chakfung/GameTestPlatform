@@ -11,7 +11,10 @@
       </div>
     </div>
     <div class="chart">
-      <div class="flow-chart"></div>
+      <div class="flow-chart">
+        <line-chart :chart-data="datacollection"></line-chart>
+        <button @click="fillData()">Randomize</button>
+      </div>
       <div class="download-chart"></div>
       <div class="bar-chart"></div>
     </div>
@@ -19,9 +22,14 @@
 </template>
 
 <script>
+import LineChart from "../../components/charts/LineChart.js";
 export default {
+  components: {
+    LineChart,
+  },
   data() {
     return {
+      datacollection: null,
       currentPage: 1,
       gamename: "",
       formInline: {
@@ -98,6 +106,29 @@ export default {
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`);
     },
+    fillData() {
+      this.datacollection = {
+        labels: [this.getRandomInt(), this.getRandomInt()],
+        datasets: [
+          {
+            label: "Data One",
+            backgroundColor: "#f87979",
+            data: [this.getRandomInt(), this.getRandomInt()],
+          },
+          {
+            label: "Data One",
+            backgroundColor: "#f87979",
+            data: [this.getRandomInt(), this.getRandomInt()],
+          },
+        ],
+      };
+    },
+    getRandomInt() {
+      return Math.floor(Math.random() * (50 - 5 + 1)) + 5;
+    },
+  },
+  mounted() {
+    this.fillData();
   },
 };
 </script>
