@@ -6,6 +6,7 @@ import GameInfo from '../views/analyse/GameInfo.vue'
 import GameData from '../views/analyse/GameData.vue'
 import GameManage from '../views/gamemanage/GameManage.vue'
 import AddGame from '../views/gamemanage/AddGame.vue'
+import ConfigList from '../views/listconfiguration/ConfigList.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -35,6 +36,10 @@ const routes = [
       {
         path: '/addgame',
         component: AddGame
+      },
+      {
+        path: '/configlist',
+        component: ConfigList
       }
     ]
   },

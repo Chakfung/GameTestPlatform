@@ -203,6 +203,7 @@ export default {
   flex-direction: column;
 
   .search-box {
+    box-shadow: 0 0 5px #e6e6e6;
     width: 100%;
     height: 120px;
     background-color: #fff;
@@ -249,6 +250,7 @@ export default {
     }
   }
   .game-list {
+    box-shadow: 0 0 5px #e6e6e6;
     height: 100%;
     margin-top: 20px;
     width: 100%;

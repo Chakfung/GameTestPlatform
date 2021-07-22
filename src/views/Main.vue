@@ -58,27 +58,30 @@
             </el-submenu>
             <el-submenu index="3">
               <template slot="title"
-                ><i class="el-icon-setting"></i>导航三</template
+                ><i class="el-icon-setting"></i>榜单配置</template
               >
               <el-menu-item-group>
-                <template slot="title">分组一</template>
-                <el-menu-item index="3-1">选项1</el-menu-item>
-                <el-menu-item index="3-2">选项2</el-menu-item>
+                <el-menu-item index="/configlist">配置列表</el-menu-item>
               </el-menu-item-group>
-              <el-menu-item-group title="分组2">
-                <el-menu-item index="3-3">选项3</el-menu-item>
+            </el-submenu>
+            <el-submenu index="4">
+              <template slot="title"
+                ><i class="el-icon-setting"></i>信息中心</template
+              >
+              <el-menu-item-group>
+                <el-menu-item index="3-1">信息记录</el-menu-item>
+                <el-menu-item index="3-1">新增消息</el-menu-item>
+                <el-menu-item index="3-1">模板记录</el-menu-item>
               </el-menu-item-group>
-              <el-submenu index="3-4">
-                <template slot="title">选项4</template>
-                <el-menu-item index="3-4-1">选项4-1</el-menu-item>
-              </el-submenu>
             </el-submenu>
           </el-menu>
         </el-aside>
-
-        <el-main>
-          <router-view :key="$route.path"></router-view>
-        </el-main>
+        <div class="main-right el-main">
+          <div class="main-title"><span>数据分析</span></div>
+          <el-main>
+            <router-view :key="$route.path"></router-view>
+          </el-main>
+        </div>
       </el-container>
     </el-container>
   </div>
@@ -170,16 +173,38 @@ export default {
     }
   }
 }
-
-.el-main {
-  min-width: 1670px;
-  background-color: #e9eef3;
-  color: #333;
-  text-align: center;
-  // line-height: 160px; 导致设不了表格高度
-  line-height: 20px !important;
-  min-height: 100%;
+.main-right {
   margin-top: 60px;
+  padding: 0 !important;
+  overflow: visible !important;
+
+  .main-title {
+    background-color: #eff4fa;
+    width: 100%;
+    height: 50px;
+    top: 180px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgb(224, 224, 224);
+    span {
+      display: inline-block;
+      height: 24px;
+      font-size: 16px;
+      margin-left: 20px;
+      color: #969696;
+      border-left: 3px solid rgb(0, 132, 255);
+      padding-left: 10px;
+    }
+  }
+  .el-main {
+    min-width: 1670px;
+    background-color: #f4f4f4;
+    color: #333;
+    text-align: center;
+    // line-height: 160px; 导致设不了表格高度
+    line-height: 20px !important;
+    // min-height: 100%;
+  }
 }
 
 body > .el-container {

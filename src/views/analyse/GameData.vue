@@ -1,6 +1,6 @@
 <template>
   <div class="gamedata">
-    <div class="shadow"></div>
+    <!-- <div class="shadow"></div> -->
     <div class="search-box">
       <div class="title">枪火重生</div>
       <div class="search">
@@ -138,15 +138,18 @@ export default {
   display: flex;
   align-items: center;
   flex-direction: column;
+  z-index: 3;
   .shadow {
     position: fixed;
     top: 60px;
     left: 210px;
     width: 100%;
     height: 140px;
+    z-index: 0;
     background: #e9eef3;
   }
   .search-box {
+    box-shadow: 0 0 5px #e6e6e6;
     position: fixed;
     left: 230px;
     width: calc(100% - 250px);
@@ -186,6 +189,7 @@ export default {
     }
   }
   .chart {
+    box-shadow: 0 0 5px #e6e6e6;
     margin-top: 140px;
     width: 100%;
 

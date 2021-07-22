@@ -1,24 +1,28 @@
 <template>
-  <div class="gameinfo">
+  <div class="configlist">
     <div class="search-box">
       <div class="title">
-        <i class="el-icon-search"></i>
-        游戏信息管理
+        <div class="left">数据筛选</div>
+        <div class="right"><el-button type="text">高级搜索</el-button></div>
       </div>
       <div class="search">
         <span>游戏名称:</span>
-        <el-input v-model="formInline.user" placeholder="请输入名称"></el-input>
+        <el-input
+          v-model="formInline.user"
+          placeholder="请输入名称"
+          maxlength="20"
+        ></el-input>
         <el-button type="primary">查询</el-button>
         <el-button type="info">重置</el-button>
       </div>
     </div>
-    <div class="game-list">
+    <div class="rank-list">
       <div class="top">
         <div class="title">
           <i class="el-icon-tickets"></i>
-          游戏信息列表
+          招募大厅游戏排行
         </div>
-        <el-button type="primary">新建游戏</el-button>
+        <el-button type="primary">选择游戏加入排行</el-button>
       </div>
       <div class="middle">
         <el-table
@@ -36,7 +40,12 @@
           </el-table-column>
           <el-table-column prop="name" label="游戏名称" width="180">
           </el-table-column>
+          <el-table-column prop="logo" label="logo" width="100">
+          </el-table-column>
+          <el-table-column prop="intro" label="简介" width="300">
+          </el-table-column>
           <el-table-column
+            width="160"
             prop="sort"
             label="游戏类型"
             column-key="sort"
@@ -49,39 +58,23 @@
             :filter-method="filterHandler"
           >
           </el-table-column>
-          <el-table-column
-            prop="publishTime"
-            label="发布日期"
-            sortable
-            column-key="publishTime"
-            :filters="[
-              { text: '2021.06', value: '2021.06' },
-              { text: '2021.07', value: '2021.07' },
-            ]"
-            :filter-method="filterHandler"
-          >
+          <el-table-column prop="rank" label="招募大厅排行" width="160">
           </el-table-column>
-          <el-table-column label="游戏热度" sortable prop="hit">
-            <template slot-scope="scope">
-              <i
-                class="iconfont icon-fire"
-                v-for="(index, i) in Number(scope.row.hit)"
-                :key="i"
-              ></i>
-            </template>
+          <el-table-column prop="groundingstatus" label="推出天数" width="160">
+          </el-table-column>
+          <el-table-column
+            prop="publishstatus"
+            label="发放账号状态"
+            width="160"
+          >
           </el-table-column>
           <el-table-column fixed="right" label="操作" width="200">
             <template slot-scope="scope">
-              <el-button
-                @click="handleClick(scope.row)"
-                type="text"
-                size="small"
-                >修改编辑</el-button
+              <el-button @click="rankSet(scope.row)" type="text" size="small"
+                >排行设置</el-button
               >
+              <el-button type="text" size="small">移除大厅</el-button>
               <el-button type="text" size="small">查看详情</el-button>
-              <el-button type="text" size="small" style="color: #666"
-                >删除</el-button
-              >
             </template>
           </el-table-column>
         </el-table>
@@ -92,12 +85,30 @@
           @current-change="handleCurrentChange"
           :current-page.sync="currentPage"
           :page-size="8"
-          layout="prev, pager, next, jumper"
+          layout="total, prev, pager, next, jumper"
           :total="50"
         >
         </el-pagination>
       </div>
     </div>
+    <el-dialog title="排行设置" :visible.sync="rankDialogVisible" width="800px">
+      <div class="dialog-bottom">
+        <el-button plain @click="rankDialogVisible = false">取消</el-button>
+        <el-button type="primary" @click="confirmSet">确认</el-button>
+      </div>
+    </el-dialog>
+    <el-dialog
+      title="排行设置"
+      :visible.sync="selectGameDialogVisible"
+      width="800px"
+    >
+      <div class="dialog-bottom">
+        <el-button plain @click="selectGameDialogVisible = false"
+          >取消</el-button
+        >
+        <el-button type="primary" @click="confirmSelect">确认</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -105,6 +116,8 @@
 export default {
   data() {
     return {
+      rankDialogVisible: false,
+      selectGameDialogVisible: false,
       currentPage: 1,
       gamename: "",
       formInline: {
@@ -172,7 +185,11 @@ export default {
     };
   },
   methods: {
-    handleClick(item) {
+    confirmSet(item) {
+      console.log(item);
+    },
+    confirmSelect() {},
+    rankSet(item) {
       console.log(item);
     },
     handleSizeChange(val) {
@@ -190,7 +207,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.gameinfo {
+.configlist {
   height: calc(100vh - 100px);
   display: flex;
   align-items: center;
@@ -206,6 +223,7 @@ export default {
     align-items: center;
     flex-direction: column;
     .title {
+      border-bottom: 1px solid rgb(228, 228, 228);
       height: 50px;
       width: 100%;
       display: flex;
@@ -213,6 +231,7 @@ export default {
       padding: 0 40px;
       font-size: 22px;
       font-weight: 550;
+      justify-content: space-between;
       i {
         margin-right: 15px;
       }
@@ -237,7 +256,7 @@ export default {
       }
     }
   }
-  .game-list {
+  .rank-list {
     box-shadow: 0 0 5px #e6e6e6;
     height: 100%;
     margin-top: 20px;
