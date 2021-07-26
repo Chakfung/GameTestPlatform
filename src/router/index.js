@@ -7,6 +7,8 @@ import GameData from '../views/analyse/GameData.vue'
 import GameManage from '../views/gamemanage/GameManage.vue'
 import AddGame from '../views/gamemanage/AddGame.vue'
 import ConfigList from '../views/listconfiguration/ConfigList.vue'
+import MessageRecord from '../views/message/MessageRecord.vue'
+import AddMessage from '../views/message/AddMessage.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -40,6 +42,14 @@ const routes = [
       {
         path: '/configlist',
         component: ConfigList
+      },
+      {
+        path: '/addmessage',
+        component: AddMessage
+      },
+      {
+        path: '/messagerecord',
+        component: MessageRecord
       }
     ]
   },

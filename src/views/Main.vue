@@ -29,7 +29,7 @@
           >
             <el-submenu index="1">
               <template slot="title"
-                ><i class="el-icon-message"></i>数据分析</template
+                ><i class="el-icon-s-data"></i>数据分析</template
               >
               <el-menu-item-group>
                 <template slot="title">游戏数据分析</template>
@@ -66,11 +66,11 @@
             </el-submenu>
             <el-submenu index="4">
               <template slot="title"
-                ><i class="el-icon-setting"></i>信息中心</template
+                ><i class="el-icon-message"></i>信息中心</template
               >
               <el-menu-item-group>
-                <el-menu-item index="3-1">信息记录</el-menu-item>
-                <el-menu-item index="3-1">新增消息</el-menu-item>
+                <el-menu-item index="/messagerecord">信息记录</el-menu-item>
+                <el-menu-item index="/addmessage">新增消息</el-menu-item>
                 <el-menu-item index="3-1">模板记录</el-menu-item>
               </el-menu-item-group>
             </el-submenu>
@@ -91,9 +91,9 @@
 export default {
   components: {},
   data() {
-    return {};
-  },
-};
+    return {}
+  }
+}
 </script>
 
 <style lang="scss">
@@ -103,7 +103,7 @@ export default {
   // background-image: url(../assets/images/bg2.jpg);
 }
 .el-header {
-  z-index: 1;
+  z-index: 9;
   position: fixed;
   top: 0;
   width: 100%;
@@ -158,6 +158,7 @@ export default {
   min-height: calc(100vh - 60px);
   background-color: #545c64;
   .el-menu {
+    height: 100%;
     .el-submenu {
       .el-submenu__title {
         text-align: left;
@@ -177,7 +178,7 @@ export default {
   margin-top: 60px;
   padding: 0 !important;
   overflow: visible !important;
-
+  min-width: 1173px;
   .main-title {
     background-color: #eff4fa;
     width: 100%;
@@ -197,7 +198,6 @@ export default {
     }
   }
   .el-main {
-    min-width: 1670px;
     background-color: #f4f4f4;
     color: #333;
     text-align: center;

@@ -41,6 +41,7 @@
                 v-model="ruleForm.password"
                 auto-complete="off"
                 placeholder="密码"
+                show-password
               ></el-input>
             </el-form-item>
             <!-- <el-checkbox v-model="checked" class="rememberme"

@@ -340,6 +340,7 @@ export default {
   display: flex;
   align-items: center;
   flex-direction: column;
+  min-width: 1173px;
   .card {
     box-shadow: 0 0 5px #e6e6e6;
     width: 100%;

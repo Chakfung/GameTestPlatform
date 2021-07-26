@@ -265,6 +265,9 @@ export default {
       }
     }
     .bottom {
+      padding-right: 50px;
+      display: flex;
+      flex-direction: row-reverse;
       margin-top: 30px;
       .el-pagination {
         // ::v-deep 和 /deep/ >>>别名

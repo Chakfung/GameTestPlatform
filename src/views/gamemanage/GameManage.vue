@@ -7,7 +7,7 @@
       </div>
       <div class="search">
         <span>游戏名称:</span>
-        <el-input v-model="formInline.user" placeholder="请输入名称"></el-input>
+        <el-input v-model="gamename" placeholder="请输入名称"></el-input>
         <el-button type="primary">查询</el-button>
         <el-button type="info">重置</el-button>
       </div>
@@ -29,14 +29,14 @@
         </el-button-group>
 
         <el-table
-          :data="tableData"
+          :data="item"
           border
           style="width: 100%"
           :header-cell-style="{
             'background-color': '#ededee',
             color: '#000',
             'font-weight': '550',
-            height: '60px',
+            height: '60px'
           }"
         >
           <el-table-column prop="no" label="序号" width="120">
@@ -45,7 +45,7 @@
           </el-table-column>
           <el-table-column prop="logo" label="logo" width="100">
           </el-table-column>
-          <el-table-column prop="intro" label="简介" width="300">
+          <el-table-column prop="intro" label="简介" width="350">
           </el-table-column>
           <el-table-column
             width="120"
@@ -56,14 +56,14 @@
               { text: 'RPG', value: 'RPG' },
               { text: 'MOBA', value: 'MOBA' },
               { text: 'MMORPG', value: 'MMORPG' },
-              { text: 'CAG', value: 'CAG' },
+              { text: 'CAG', value: 'CAG' }
             ]"
             :filter-method="filterHandler"
           >
           </el-table-column>
           <el-table-column prop="rank" label="排行榜名次" width="100">
           </el-table-column>
-          <el-table-column prop="groundingstatus" label="上架状态" width="180">
+          <el-table-column prop="salestatus" label="上架状态" width="180">
           </el-table-column>
           <el-table-column
             prop="publishstatus"
@@ -71,21 +71,36 @@
             width="120"
           >
           </el-table-column>
-          <el-table-column fixed="right" label="操作" width="250">
-            <template slot-scope="scope">
+          <el-table-column fixed="right" label="操作" width="280">
+            <div slot-scope="scope" v-if="scope.row.deletestatus">
               <el-button
                 @click="handleClick(scope.row)"
                 type="text"
                 size="small"
                 >修改</el-button
               >
-              <el-button type="text" size="small">上架</el-button>
-              <el-button type="text" size="small">下架</el-button>
+              <el-button
+                type="text"
+                size="small"
+                :disabled="scope.row.salestatus === '已上架' ? false : true"
+                >上架</el-button
+              >
+              <el-button
+                type="text"
+                size="small"
+                :disabled="scope.row.salestatus === '未上架' ? false : true"
+                >下架</el-button
+              >
               <el-button type="text" size="small">查看详情</el-button>
-              <el-button type="text" size="small" style="color: #666"
+              <el-button
+                type="text"
+                size="small"
+                style="color: #666"
+                @click="deleteItem(scope.row)"
                 >删除</el-button
               >
-            </template>
+            </div>
+            <span v-else style="color: #c0c4cc"> 该游戏信息已删除</span>
           </el-table-column>
         </el-table>
       </div>
@@ -110,94 +125,202 @@ export default {
   data() {
     return {
       currentPage: 1,
-      gamename: "",
+      gamename: '',
       formInline: {
-        user: "",
-        region: "",
+        user: '',
+        region: ''
       },
-      tableData: [
+      item: [
         {
-          no: "1",
-          name: "神武4",
-          sort: "RPG",
-          publishTime: "2021.07",
-          hit: "3",
+          no: '1',
+          name: '神武4',
+          intro: '阿萨德大撒所多',
+          sort: ['策略', '国风'],
+          rank: '3',
+          salestatus: '未上架',
+          publishstatus: '预约',
+          deletestatus: true
         },
         {
-          no: "2",
-          name: "王者荣耀",
-          sort: "MOBA",
-          publishTime: "2021.06",
-          hit: "4",
+          no: '2',
+          name: '王者农药',
+          intro: '阿萨德大撒所多',
+          sort: ['策略', '国风'],
+          rank: '3',
+          salestatus: '已上架',
+          publishstatus: '预约',
+          deletestatus: false
         },
         {
-          no: "3",
-          name: "阴阳师",
-          sort: "CAG",
-          publishTime: "2021.07",
-          hit: "3",
+          no: '1',
+          name: '神武4',
+          intro: '阿萨德大撒所多',
+          sort: ['策略', '国风'],
+          rank: '3',
+          salestatus: '已上架',
+          publishstatus: '预约',
+          deletestatus: true
         },
         {
-          no: "4",
-          name: "元气众生录",
-          sort: "MMORPG",
-          publishTime: "2021.06",
-          hit: "2",
+          no: '2',
+          name: '王者农药',
+          intro: '阿萨德大撒所多',
+          sort: ['策略', '国风'],
+          rank: '3',
+          salestatus: '已上架',
+          publishstatus: '预约',
+          deletestatus: false
         },
         {
-          no: "1",
-          name: "神武4",
-          sort: "RPG",
-          publishTime: "2021.07",
-          hit: "3",
+          no: '1',
+          name: '神武4',
+          intro: '阿萨德大撒所多',
+          sort: ['策略', '国风'],
+          rank: '3',
+          salestatus: '已上架',
+          publishstatus: '预约',
+          deletestatus: true
         },
         {
-          no: "2",
-          name: "王者荣耀",
-          sort: "MOBA",
-          publishTime: "2021.06",
-          hit: "4",
+          no: '2',
+          name: '王者农药',
+          intro: '阿萨德大撒所多',
+          sort: ['策略', '国风'],
+          rank: '3',
+          salestatus: '未上架',
+          publishstatus: '预约',
+          deletestatus: false
         },
         {
-          no: "3",
-          name: "阴阳师",
-          sort: "CAG",
-          publishTime: "2021.07",
-          hit: "5",
+          no: '1',
+          name: '神武4',
+          intro: '阿萨德大撒所多',
+          sort: ['策略', '国风'],
+          rank: '3',
+          salestatus: '未上架',
+          publishstatus: '预约',
+          deletestatus: true
         },
         {
-          no: "4",
-          name: "元气众生录",
-          sort: "MMORPG",
-          publishTime: "2021.06",
-          hit: "2",
+          no: '2',
+          name: '王者农药',
+          intro: '阿萨德大撒所多',
+          sort: ['策略', '国风'],
+          rank: '3',
+          salestatus: '未上架',
+          publishstatus: '预约',
+          deletestatus: false
         },
-      ],
-    };
+        {
+          no: '1',
+          name: '神武4',
+          intro: '阿萨德大撒所多',
+          sort: ['策略', '国风'],
+          rank: '3',
+          salestatus: '未上架',
+          publishstatus: '预约',
+          deletestatus: true
+        },
+        {
+          no: '2',
+          name: '王者农药',
+          intro: '阿萨德大撒所多',
+          sort: ['策略', '国风'],
+          rank: '3',
+          salestatus: '已上架',
+          publishstatus: '预约',
+          deletestatus: false
+        },
+        {
+          no: '1',
+          name: '神武4',
+          intro: '阿萨德大撒所多',
+          sort: ['策略', '国风'],
+          rank: '3',
+          salestatus: '已上架',
+          publishstatus: '预约',
+          deletestatus: true
+        },
+        {
+          no: '2',
+          name: '王者农药',
+          intro: '阿萨德大撒所多',
+          sort: ['策略', '国风'],
+          rank: '3',
+          salestatus: '已上架',
+          publishstatus: '预约',
+          deletestatus: false
+        },
+        {
+          no: '1',
+          name: '神武4',
+          intro: '阿萨德大撒所多',
+          sort: ['策略', '国风'],
+          rank: '3',
+          salestatus: '已上架',
+          publishstatus: '预约',
+          deletestatus: true
+        },
+        {
+          no: '2',
+          name: '王者农药',
+          intro: '阿萨德大撒所多',
+          sort: ['策略', '国风'],
+          rank: '3',
+          salestatus: '未上架',
+          publishstatus: '预约',
+          deletestatus: false
+        },
+        {
+          no: '1',
+          name: '神武4',
+          intro: '阿萨德大撒所多',
+          sort: ['策略', '国风'],
+          rank: '3',
+          salestatus: '未上架',
+          publishstatus: '预约',
+          deletestatus: true
+        },
+        {
+          no: '2',
+          name: '王者农药',
+          intro: '阿萨德大撒所多',
+          sort: ['策略', '国风'],
+          rank: '3',
+          salestatus: '未上架',
+          publishstatus: '预约',
+          deletestatus: false
+        }
+      ]
+    }
   },
   methods: {
+    // 删除
+    deleteItem(item) {
+      console.log(item)
+    },
     handleClick(item) {
-      console.log(item);
+      console.log(item)
     },
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
+      console.log(`每页 ${val} 条`)
     },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
+      console.log(`当前页: ${val}`)
     },
     filterHandler(value, row, column) {
-      const property = column["property"];
-      return row[property] === value;
-    },
-  },
-};
+      const property = column['property']
+      return row[property] === value
+    }
+  }
+}
 </script>
 
 
 
 <style lang="scss" scoped>
 .gamemanage {
-  height: calc(100vh - 100px);
+  min-height: calc(100vh - 150px);
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -251,7 +374,7 @@ export default {
   }
   .game-list {
     box-shadow: 0 0 5px #e6e6e6;
-    height: 100%;
+    padding-bottom: 20px;
     margin-top: 20px;
     width: 100%;
     background-color: #fff;
@@ -280,6 +403,9 @@ export default {
       }
     }
     .bottom {
+      padding-right: 50px;
+      display: flex;
+      flex-direction: row-reverse;
       margin-top: 30px;
       .el-pagination {
         // ::v-deep 和 /deep/ >>>别名

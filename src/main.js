@@ -9,6 +9,10 @@ import http from './http'
 import './assets/css/icon-font/iconfont.css'
 import $ from 'jquery'
 
+// import ECharts from 'vue-chartjs'
+// import 'echarts/lib/chart/line'
+// Vue.component('chart', ECharts)
+
 Vue.prototype.$http = http
 Vue.config.productionTip = false
 Vue.use(ElementUI)

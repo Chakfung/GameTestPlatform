@@ -10,10 +10,35 @@
         <el-button type="info">重置</el-button>
       </div>
     </div>
-    <div class="chart">
+    <div class="chart-list">
       <div class="flow-chart">
-        <line-chart :chart-data="datacollection"></line-chart>
-        <button @click="fillData()">Randomize</button>
+        <!-- <line-chart :chart-data="datacollection"></line-chart>
+        <button @click="fillData()">Randomize</button> -->
+        <div class="chart-content">
+          <div class="top">
+            <div class="left">浏览量统计图</div>
+            <div class="right">
+              <el-button-group>
+                <el-button plain icon="el-icon-arrow-left">本日</el-button>
+                <el-button plain
+                  >本周<i class="el-icon-arrow-right el-icon--right"></i
+                ></el-button>
+                <el-button plain
+                  >本月<i class="el-icon-arrow-right el-icon--right"></i
+                ></el-button>
+              </el-button-group>
+              <el-date-picker
+                type="date"
+                placeholder="选择日期"
+                style="width: 150px"
+              ></el-date-picker>
+            </div>
+          </div>
+          <div class="char">
+            <div class="statiscard"></div>
+            <commit-chart :data="orgOptions" :options="options"></commit-chart>
+          </div>
+        </div>
       </div>
       <div class="download-chart"></div>
       <div class="bar-chart"></div>
@@ -22,13 +47,35 @@
 </template>
 
 <script>
-import LineChart from "../../components/charts/LineChart.js";
+import CommitChart from "../../components/charts/CommitChart";
+// import LineChart from "echarts/lib/chart/line";
+// import LineChart from "../../components/charts/LineChart.js";
+// Vue.component("chart", ECharts);
 export default {
-  components: {
-    LineChart,
-  },
+  components: { CommitChart },
   data() {
     return {
+      options: { responsive: true, maintainAspectRatio: false },
+      orgOptions: {
+        labels: [
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+        ],
+        datasets: [
+          {
+            grouped: false,
+            hoverBackgroundColor: "#0ab0aa",
+            label: "Data One",
+            backgroundColor: "#73a0fa",
+            data: [40, 39, 10, 40, 39, 80, 40],
+          },
+        ],
+      },
       datacollection: null,
       currentPage: 1,
       gamename: "",
@@ -128,11 +175,27 @@ export default {
     },
   },
   mounted() {
+    this.orgOptions = {
+      xAxis: {
+        type: "category",
+        data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+      },
+      yAxis: {
+        type: "value",
+      },
+      series: [
+        {
+          data: [820, 932, 901, 934, 1290, 1330, 1320],
+          type: "line",
+          smooth: true,
+        },
+      ],
+    };
     this.fillData();
   },
 };
 </script>
-
+960 1440
 <style lang="scss" scoped>
 .gamedata {
   display: flex;
@@ -149,6 +212,7 @@ export default {
     background: #e9eef3;
   }
   .search-box {
+    min-width: 1173px;
     box-shadow: 0 0 5px #e6e6e6;
     position: fixed;
     left: 230px;
@@ -188,16 +252,53 @@ export default {
       }
     }
   }
-  .chart {
+  .chart-list {
     box-shadow: 0 0 5px #e6e6e6;
     margin-top: 140px;
     width: 100%;
 
     .flow-chart {
-      height: 600px;
       width: 100%;
       background-color: #fff;
       border-radius: 6px;
+      padding: 20px;
+      .chart-content {
+        height: 100%;
+        border: 1px rgb(163, 163, 163) solid;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .top {
+          padding-top: 20px;
+          width: 95%;
+          display: flex;
+          justify-content: space-between;
+          .left {
+            font-weight: 600;
+            font-size: 20px;
+          }
+          .right {
+            .el-button-group {
+              margin-right: 20px;
+            }
+          }
+        }
+        .char {
+          position: relative;
+          margin-top: 20px;
+          padding-top: 120px;
+          width: 90%;
+          .statiscard {
+            position: absolute;
+            right: 20px;
+            top: 5px;
+            width: 200px;
+            height: 120px;
+            box-shadow: 0 0 10px #b6b6b6;
+            background-color: #fff;
+          }
+        }
+      }
     }
     .download-chart {
       height: 600px;
